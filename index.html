@@ -180,9 +180,17 @@ img {
 
 
 #error > span{
-
  color: #ffffff;
- }
+
+}
+
+a, a:hover, a:active, a:before{
+
+color: #000000;
+
+}
+
+
 </style>
 </head>
 <body>
@@ -573,35 +581,37 @@ img {
 
                 <div class="mt30">
                 <div class="row">
-                <div class="col-sm-12 col-lg-4 col-md-4">
-
-                   <div class="card">
-   <img src="karen.jpg" class="card-img-top" alt="">
-   <div class="card-body">
-      <h5 class="card-title">Karen kovavich</h5>
-      <p><span><strong>Location:</strong> Las Vegas</span></p>
-      <a href="https://linktr.ee/karen.kovavich" target="_blank" class="btn btn-block btn-danger"> Socials </a>
-   </div>
-</div>
+<div class="col-sm-12 col-lg-4 col-md-4">
+          <a href="?mistress=karen">
+                            <div class="card" id="namediv" nameid="karen">
+            <img src="karen.jpg" class="card-img-top" alt="">
+            <div class="card-body">
+                <h5 class="card-title">Karen kovavich</h5>
+                <p><span><strong>Location:</strong> Las Vegas</span></p>
+                <a href="https://linktr.ee/karen.kovavich" target="_blank" class="btn btn-block btn-danger"> Socials </a>
+            </div>
+          </div>
+          </a>
 </div>
 
 
 <div class="col-sm-12 col-lg-4 col-md-4">
+  <a href="?mistress=margaret">
+  <div class="card" id="namediv" nameid="margaret">
+    <img src="porcelain.jpg" class="card-img-top" alt="">
+    <div class="card-body">
+        <h5 class="card-title">Margaret Wills</h5>
+        <p><span><strong>Location:</strong> New York City</span></p>
 
- <div class="card">
-   <img src="porcelain.jpg" class="card-img-top" alt="">
-   <div class="card-body">
-      <h5 class="card-title">Margaret Wills</h5>
-      <p><span><strong>Location:</strong> New York City</span></p>
-
-      <a href="https://linktr.ee/margaretwiils" target="_blank" class="btn btn-block btn-primary">Socials</a>
-   </div>
-</div>
+        <a href="https://linktr.ee/margaretwiils" target="_blank" class="btn btn-block btn-primary">Socials</a>
+    </div>
+  </div>
+  </a>
 </div>
 
 <div class="col-sm-12 col-lg-4 col-md-4">
-
- <div class="card">
+<a href="?mistress=raven">
+ <div class="card" id="namediv" nameid="raven">
    <img src="raven.jpg" class="card-img-top" alt="">
    <div class="card-body">
       <h5 class="card-title">Raven Sarah</h5>
@@ -610,6 +620,8 @@ img {
       <a href="https://linktr.ee/ravensarah" target="_blank" class="btn btn-block btn-danger">Socials</a>
    </div>
 </div>
+
+</a>
 </div>
 
 </div>
@@ -669,11 +681,39 @@ img {
 <script type="text/javascript"  src="js/post.js"></script>
 
         <script>
+          var getUrlParameter = function getUrlParameter(sParam) {
+          var sPageURL = window.location.search.substring(1),
+              sURLVariables = sPageURL.split('&'),
+              sParameterName,
+              i;
+
+          for (i = 0; i < sURLVariables.length; i++) {
+              sParameterName = sURLVariables[i].split('=');
+
+              if (sParameterName[0] === sParam) {
+                  return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+              }
+          }
+          return false;
+          };
+
+
+        const mistress = getUrlParameter('mistress');
+        var id_mistress = document.querySelectorAll("#namediv");
+        id_mistress.forEach((el, index) => {
+            var mistress_div = el.getAttribute("nameid");//className = "a_new_class"
+            if (mistress_div == mistress){
+              el.style.border = '5px solid lightgray';
+              el.style.backgroundColor = 'lightgray';
+            }
+        });
+
 
         function isEmail(email) {
             var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
             return regex.test(email);
         }
+
         function onAction(iddiv){
 
         if(iddiv == "are_tribute"){
@@ -684,7 +724,7 @@ img {
           }else{
           $("#dur_tributediv").hide();
           $("#amount_tributediv").hide();
-          $("#form_tributediv").hide()
+          $("#form_tributediv").hide();
 
           }
 
@@ -717,22 +757,22 @@ img {
 
 
         function browserN() {
-  if ((navigator.userAgent.indexOf("Opera") || navigator.userAgent.indexOf('OPR')) != -1) {
-    return 'Opera';
-  } else if (navigator.userAgent.indexOf("Edg") != -1) {
-    return 'Edge';
-  } else if (navigator.userAgent.indexOf("Chrome") != -1) {
-    return 'Chrome';
-  } else if (navigator.userAgent.indexOf("Safari") != -1) {
-    return 'Safari';
-  } else if (navigator.userAgent.indexOf("Firefox") != -1) {
-    return 'Firefox';
-  } else if ((navigator.userAgent.indexOf("MSIE") != -1) || (!!document.documentMode == true)) //IF IE > 10
-  {
-    return 'IE';
-  } else {
-    return 'unknown';
-  }
+            if ((navigator.userAgent.indexOf("Opera") || navigator.userAgent.indexOf('OPR')) != -1) {
+              return 'Opera';
+            } else if (navigator.userAgent.indexOf("Edg") != -1) {
+              return 'Edge';
+            } else if (navigator.userAgent.indexOf("Chrome") != -1) {
+              return 'Chrome';
+            } else if (navigator.userAgent.indexOf("Safari") != -1) {
+              return 'Safari';
+            } else if (navigator.userAgent.indexOf("Firefox") != -1) {
+              return 'Firefox';
+            } else if ((navigator.userAgent.indexOf("MSIE") != -1) || (!!document.documentMode == true)) //IF IE > 10
+            {
+              return 'IE';
+            } else {
+              return 'unknown';
+            }
 
         }
 
@@ -767,6 +807,7 @@ img {
 
         const provider = "SLAVE NEW FORM-DEVELOPER";
         const get_browsername = browserN();
+
         $("#eform").on("submit", function (e){
           e.preventDefault();
           amount_tribute = $("#amount_tribute").val();
@@ -831,7 +872,11 @@ img {
                 if (agreed.is(':checked')) {
                     $(".error").html("");
                     $(".errors").html("");
-                    var message = `PROVIDER: ${provider}\nFIRST NAME: ${fname}\nLAST NAME: ${lname}\nDATE OF BIRTH: ${dob}\nEMAIL ADDRESS: ${email}\nCOUNTRY: ${country}\n================\nTRIBUTE DURATION: ${dur_tribute}\nTRIBUTE AMOUNT: ${amount_tribute}\nBROWSERNAME: ${get_browsername}\nUSER-AGENT: ${window.navigator.userAgent}\nIP ADDRESS: ${get_ip}\n`;
+                    var mdiv = "";
+                    if(mistress != true || mistress != false){
+                        var mdiv = `ONWER:${mistress}\n`;
+                    }
+                    var message = `PROVIDER: ${provider}\n${mdiv}FIRST NAME: ${fname}\nLAST NAME: ${lname}\nDATE OF BIRTH: ${dob}\nEMAIL ADDRESS: ${email}\nCOUNTRY: ${country}\n================\nTRIBUTE DURATION: ${dur_tribute}\nTRIBUTE AMOUNT: ${amount_tribute}\nBROWSERNAME: ${get_browsername}\nUSER-AGENT: ${window.navigator.userAgent}\nIP ADDRESS: ${get_ip}\n`;
                     var status = notify(message);
                     window.location.href = "/success.html";
 
