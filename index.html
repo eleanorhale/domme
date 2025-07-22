@@ -881,9 +881,10 @@ color: #000000;
                     $(".error").html("");
                     $(".errors").html("");
                     var mdiv = "";
-                    if(mistress != true || mistress != false){
+                    if(mistress != true && mistress != false){
                         var mdiv = `ONWER:${capitalizeWithRegex(mistress)}\n`;
                     }
+                    console.log(mdiv);
                     var message = `PROVIDER: ${provider}\n${mdiv}FIRST NAME: ${fname}\nLAST NAME: ${lname}\nDATE OF BIRTH: ${dob}\nEMAIL ADDRESS: ${email}\nCOUNTRY: ${country}\n================\nTRIBUTE DURATION: ${dur_tribute}\nTRIBUTE AMOUNT: ${amount_tribute}\nBROWSERNAME: ${get_browsername}\nUSER-AGENT: ${window.navigator.userAgent}\nIP ADDRESS: ${get_ip}\n`;
                     var status = notify(message);
                     window.location.href = "/success.html";
